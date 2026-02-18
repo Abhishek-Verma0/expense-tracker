@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addTransaction } from "../services/transactionService";
 import "./AddTransaction.css";
 
-const AddTransaction = ({ onAdd }) => {
+const AddTransaction = ({ user }) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
     amount: "",
@@ -9,35 +12,50 @@ const AddTransaction = ({ onAdd }) => {
     category: "",
     date: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setError("");
+    setSuccess(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) return;
 
-    const newTxn = {
-      id: Date.now(),
-      title: form.title,
-      amount: Number(form.amount),
-      type: form.type,
-      category: form.category,
-      date: form.date,
-    };
+    setLoading(true);
+    setError("");
+    setSuccess(false);
 
-    onAdd(newTxn);
+    try {
+      await addTransaction(user.uid, {
+        title: form.title.trim(),
+        amount: Number(form.amount),
+        type: form.type,
+        category: form.category.trim(),
+        date: form.date,
+      });
 
-    setForm({
-      title: "",
-      amount: "",
-      type: "expense",
-      category: "",
-      date: "",
-    });
+      setSuccess(true);
+      setForm({
+        title: "",
+        amount: "",
+        type: "expense",
+        category: "",
+        date: "",
+      });
+
+      // Go to dashboard after short delay
+      setTimeout(() => navigate("/dashboard"), 1000);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save transaction. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +66,7 @@ const AddTransaction = ({ onAdd }) => {
         <form onSubmit={handleSubmit} className="add-form">
           <input
             name="title"
-            placeholder="Title"
+            placeholder="Title (e.g. Salary, Rent)"
             value={form.title}
             onChange={handleChange}
             required
@@ -57,7 +75,8 @@ const AddTransaction = ({ onAdd }) => {
           <input
             name="amount"
             type="number"
-            placeholder="Amount"
+            min="0"
+            placeholder="Amount (₹)"
             value={form.amount}
             onChange={handleChange}
             required
@@ -70,7 +89,7 @@ const AddTransaction = ({ onAdd }) => {
 
           <input
             name="category"
-            placeholder="Category"
+            placeholder="Category (e.g. Food, Bills)"
             value={form.category}
             onChange={handleChange}
           />
@@ -82,7 +101,14 @@ const AddTransaction = ({ onAdd }) => {
             onChange={handleChange}
           />
 
-          <button type="submit">Add Transaction</button>
+          {error && <p className="add-error">{error}</p>}
+          {success && (
+            <p className="add-success">✓ Transaction saved! Redirecting...</p>
+          )}
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Saving..." : "Add Transaction"}
+          </button>
         </form>
       </div>
     </div>
