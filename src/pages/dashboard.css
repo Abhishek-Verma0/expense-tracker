@@ -1,0 +1,22 @@
+
+.dashboard {
+    margin: 5rem 10rem;
+}
+
+
+.summary-cards {
+    display: flex;
+    gap: 30px;            /* space between cards */
+    flex-wrap: wrap;      /* prevents overlap on small screens */
+    margin-top: 5rem;
+}
+
+.balance-card{
+    display: flex;
+
+}
+
+
+.income-card{
+    display: flex;
+}
