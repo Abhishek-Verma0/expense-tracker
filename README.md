@@ -1,16 +1,68 @@
-# React + Vite
+# FinFusion - Personal Finance Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive expense tracking application built with React and Vite. FinFusion helps you monitor your income and expenses, visualize your financial health, and stay on top of your budget with ease.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard Analytics:** Visual representation of your finances (Pie and Bar charts).
+- **Transaction Management:** Easily add, edit, and delete income or expense records.
+- **Search & Filter:** Find exactly what you need with fast category and keyword filtering.
+- **Light/Dark Theme:** Built-in theme toggling for an optimal viewing experience in any lighting condition.
+- **Secure Authentication:** User signup and login powered by Firebase Auth.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend Framework:** React (with Vite)
+- **Routing:** React Router DOM
+- **Data Visualization:** Recharts
+- **Icons:** React Icons
+- **Backend & Auth:** Firebase
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Follow these steps to run the application locally.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) installed on your machine.
+- A Firebase project set up with Authentication and Firestore Database enabled.
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd expense-tracker
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+   Create a `.env` file in the root directory and add your Firebase configuration:
+   ```env
+   VITE_FIREBASE_API_KEY=your_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in Browser:**
+   Navigate to `http://localhost:5173` to view the app.
+
+## Available Scripts
+
+- `npm run dev` - Starts the development server.
+- `npm run build` - Builds the app for production.
+- `npm run preview` - Locally preview the production build.
+- `npm run lint` - Lints the codebase using ESLint.
+
