@@ -17,20 +17,20 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ===== Global Transactions State =====
+
   const [transactions, setTransactions] = useState([]);
 
-  // Add transaction (used by AddTransaction page)
+  // Add transaction 
   const handleAddTransaction = (newTxn) => {
     setTransactions((prev) => [newTxn, ...prev]);
   };
 
-  // Delete transaction (future use)
+  // Delete transaction 
   const handleDeleteTransaction = (id) => {
     setTransactions((prev) => prev.filter((txn) => txn.id !== id));
   };
 
-  // ===== Firebase Auth Listener =====
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -40,7 +40,7 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // Load user transactions from Firestore
+ 
   useEffect(() => {
     const loadTransactions = async () => {
       if (user) {
@@ -52,13 +52,13 @@ const App = () => {
     loadTransactions();
   }, [user]);
 
-  // ===== Logout =====
+ 
   const handleLogout = async () => {
     await signOut(auth);
     setTransactions([]); // clear user data
   };
 
-  // ===== Loading Screen =====
+  
   if (loading) {
     return (
       <div

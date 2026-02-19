@@ -6,6 +6,7 @@
   margin-top: 20px;
 }
 
+/* Transaction Card */
 .transaction-item {
   display: flex;
   justify-content: space-between;
@@ -15,10 +16,13 @@
   border-radius: 8px;
   margin-bottom: 10px;
   background: #222121;
+  gap: 15px;
 }
 
+/* Left content */
 .txn-left h4 {
   margin: 0;
+  font-size: 16px;
 }
 
 .txn-left p {
@@ -27,21 +31,67 @@
   color: #777;
 }
 
+/* Amount */
 .txn-amount {
   font-weight: bold;
   font-size: 16px;
 }
 
 .txn-amount.income {
-  color: green;
+  color: #00c853;
 }
 
 .txn-amount.expense {
-  color: red;
+  color: #ff5252;
 }
 
+/* Actions */
 .txn-actions button {
   margin-left: 8px;
   padding: 4px 10px;
   cursor: pointer;
+}
+
+/* ========================= */
+/* Tablet */
+/* ========================= */
+@media (max-width: 768px) {
+  .transaction-item {
+    padding: 12px;
+  }
+
+  .txn-left h4 {
+    font-size: 15px;
+  }
+
+  .txn-amount {
+    font-size: 15px;
+  }
+}
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+@media (max-width: 480px) {
+  .transaction-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .txn-amount {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .txn-actions {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .txn-actions button {
+    margin-left: 10px;
+    padding: 6px 12px;
+  }
 }

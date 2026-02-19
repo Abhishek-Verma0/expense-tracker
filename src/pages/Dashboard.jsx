@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import SpotlightCard from "../components/summary/SpotlightCard";
 import FiltersBar from "../components/FilterItem/FiltersBar";
 import TransactionItem from "../components/Transaction/TransactionItem";
@@ -15,12 +15,14 @@ const Dashboard = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // ── Load transactions from Firestore on mount ──
+  // ── Load transactions from Firestore ──
   useEffect(() => {
     if (!user) return;
+
     const load = async () => {
       setLoading(true);
       setError("");
+
       try {
         const data = await fetchTransactions(user.uid);
         setTransactions(data);
@@ -31,10 +33,11 @@ const Dashboard = ({ user }) => {
         setLoading(false);
       }
     };
+
     load();
   }, [user]);
 
-  // ── Delete ──
+  // ── Delete Transaction ──
   const handleDelete = async (txnId) => {
     try {
       await deleteTransaction(user.uid, txnId);
@@ -45,7 +48,7 @@ const Dashboard = ({ user }) => {
     }
   };
 
-  // ── Edit (inline save) ──
+  // ── Edit Transaction ──
   const handleEdit = async (txnId, updatedFields) => {
     try {
       await updateTransaction(user.uid, txnId, updatedFields);
@@ -58,26 +61,35 @@ const Dashboard = ({ user }) => {
     }
   };
 
-  // ── Filtered list ──
-  const filtered = transactions.filter((txn) =>
-    txn.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  // ── Filtered Transactions (only for list) ──
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((txn) =>
+      txn.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [transactions, searchTerm]);
 
-  const totalIncome = filtered
-    .filter((t) => t.type === "income")
-    .reduce((s, t) => s + Number(t.amount), 0);
+  // ── Summary (ALWAYS from full transactions) ──
+  const { totalIncome, totalExpense, totalBalance } = useMemo(() => {
+    const income = transactions
+      .filter((t) => t.type === "income")
+      .reduce((sum, t) => sum + Number(t.amount), 0);
 
-  const totalExpense = filtered
-    .filter((t) => t.type === "expense")
-    .reduce((s, t) => s + Number(t.amount), 0);
+    const expense = transactions
+      .filter((t) => t.type === "expense")
+      .reduce((sum, t) => sum + Number(t.amount), 0);
 
-  const totalBalance = totalIncome - totalExpense;
+    return {
+      totalIncome: income,
+      totalExpense: expense,
+      totalBalance: income - expense,
+    };
+  }, [transactions]);
 
   return (
     <div className="dashboard">
       <h1 className="dash-head">Dashboard</h1>
 
-      {/* Summary Cards */}
+      {/* Summary Cards (Not affected by search) */}
       <div className="summary-cards">
         <SpotlightCard spotlightColor="rgba(0,229,255,0.2)">
           <h2>Total Balance</h2>
@@ -101,24 +113,24 @@ const Dashboard = ({ user }) => {
         </SpotlightCard>
       </div>
 
-      {/* Error banner */}
+      {/* Error */}
       {error && <p className="dash-error">{error}</p>}
 
-      {/* Filter / Search */}
+      {/* Search / Filter */}
       <FiltersBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Transactions List */}
       <div className="transactions-list">
         {loading ? (
           <p className="dash-status">Loading transactions...</p>
-        ) : filtered.length === 0 ? (
+        ) : filteredTransactions.length === 0 ? (
           <p className="dash-status">
             {searchTerm
               ? "No transactions match your search."
               : "No transactions yet. Add one!"}
           </p>
         ) : (
-          filtered.map((txn) => (
+          filteredTransactions.map((txn) => (
             <TransactionItem
               key={txn.id}
               txn={txn}

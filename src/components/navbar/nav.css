@@ -1,3 +1,4 @@
+/* Navbar container */
 .nav {
   position: sticky;
   top: 0;
@@ -12,6 +13,7 @@
   border-bottom: 1px solid #2a2a2a;
 }
 
+/* App title */
 .app-title {
   font-size: 20px;
   font-weight: bold;
@@ -19,12 +21,14 @@
   cursor: pointer;
 }
 
+/* Links container */
 .navLink {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 
+/* Links */
 .navLink a {
   text-decoration: none;
   color: #ddd;
@@ -35,6 +39,7 @@
   color: #00e5ff;
 }
 
+/* Logout button */
 .logout-btn {
   background: transparent;
   border: 1px solid #00e5ff;
@@ -47,4 +52,55 @@
 .logout-btn:hover {
   background: #00e5ff;
   color: #000;
+}
+
+/* Hamburger button (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  color: #00e5ff;
+  cursor: pointer;
+}
+
+/* ========================= */
+/* Mobile Responsive */
+/* ========================= */
+@media (max-width: 768px) {
+  .nav {
+    padding: 12px 20px;
+  }
+
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Hide links by default */
+  .navLink {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+
+    background: #111;
+    border-top: 1px solid #2a2a2a;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+
+    padding: 20px;
+
+    display: none;
+  }
+
+  /* Show when active */
+  .navLink.open {
+    display: flex;
+  }
+
+  .navLink a,
+  .logout-btn {
+    width: 100%;
+  }
 }
