@@ -1,106 +1,123 @@
-/* Navbar container */
 .nav {
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 20px;
+}
 
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 15px 30px;
-  background: #111;
-  border-bottom: 1px solid #2a2a2a;
 }
 
-/* App title */
 .app-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #00e5ff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   cursor: pointer;
 }
 
-/* Links container */
-.navLink {
+.nav-links {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 24px;
 }
 
-/* Links */
-.navLink a {
+.nav-links a {
+  color: var(--text-secondary);
   text-decoration: none;
-  color: #ddd;
-  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
-.navLink a.active {
-  color: #00e5ff;
+.nav-links a.active,
+.nav-links a:hover {
+  color: var(--primary-color);
 }
 
-/* Logout button */
 .logout-btn {
-  background: transparent;
-  border: 1px solid #00e5ff;
-  color: #00e5ff;
-  padding: 6px 12px;
+  background: none;
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
+  padding: 6px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
+  transition: all 0.2s;
 }
 
 .logout-btn:hover {
-  background: #00e5ff;
-  color: #000;
+  background: var(--danger-color);
+  color: #fff;
 }
 
-/* Hamburger button (hidden on desktop) */
-.menu-toggle {
-  display: none;
-  font-size: 22px;
-  color: #00e5ff;
+.theme-toggle-btn {
+  background: none;
+  border: none;
   cursor: pointer;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
 }
 
-/* ========================= */
-/* Mobile Responsive */
-/* ========================= */
-@media (max-width: 768px) {
-  .nav {
-    padding: 12px 20px;
-  }
+.theme-toggle-btn:hover {
+  transform: rotate(15deg) scale(1.1);
+  color: var(--primary-color);
+}
 
-  /* Show hamburger */
-  .menu-toggle {
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hamburger {
     display: block;
   }
 
-  /* Hide links by default */
-  .navLink {
-    position: absolute;
-    top: 60px;
+  .nav-links {
+    position: fixed; /* Fixed to cover view or sticking to top */
+    top: 70px;
+    left: 0;
     right: 0;
-    width: 100%;
-
-    background: #111;
-    border-top: 1px solid #2a2a2a;
-
+    background-color: var(--card-bg); /* Solid background */
     flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-
-    padding: 20px;
-
-    display: none;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    
+    /* Animation definition */
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    pointer-events: none; /* Prevent clicks when hidden */
   }
 
-  /* Show when active */
-  .navLink.open {
-    display: flex;
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .navLink a,
-  .logout-btn {
-    width: 100%;
+  .theme-toggle-btn {
+    margin-top: 10px;
+    font-size: 1.5rem;
   }
 }

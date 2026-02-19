@@ -9,11 +9,18 @@
 .filters-bar input {
   width: 300px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 14px;
-  background: #222121;
-  color: #fff;
+  background: var(--input-bg);
+  color: var(--text-color);
+  transition: all 0.2s;
+}
+
+.filters-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
 }
 
 /* Tablet */

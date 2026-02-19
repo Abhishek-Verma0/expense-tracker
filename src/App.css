@@ -1,13 +1,61 @@
-*{
+:root {
+  /* Default Dark Mode (matching original design) */
+  --bg-color: #0f0f13;
+  --text-color: #ffffff;
+  --text-secondary: #aaa;
+  --card-bg: #1a1a1a;
+  --border-color: #333;
+  --input-bg: #121212;
+  --primary-color: #0ea5e9;
+  --primary-rgb: 14, 165, 233;
+  --secondary-color: #00ff88;
+  --danger-color: #ff4d4d;
+  --nav-bg: rgba(0, 0, 0, 0.8);
+  --header-row-bg: rgba(255, 255, 255, 0.05);
+  --title-gradient: linear-gradient(90deg, #fff, #aaa);
+  --btn-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+[data-theme="light"] {
+  --bg-color: #f4f6f8;
+  --text-color: #1a1a1a;
+  --text-secondary: #555;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --input-bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --header-row-bg: rgba(0, 0, 0, 0.05);
+  --title-gradient: linear-gradient(90deg, #1a1a1a, #555);
+  /* Dull Slate Blue gradient for Light Mode */
+  --btn-gradient: linear-gradient(135deg, #475569, #64748b);
+  --secondary-color: #10b981; /* Slightly darker green for light mode visibility if needed, but btn-gradient overrides */
+}
+
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
 }
 
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+}
 
-body{
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #080808;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

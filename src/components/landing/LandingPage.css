@@ -1,9 +1,11 @@
 
+
 .landing-wrapper {
   min-height: 100vh;
-  background: #0f0f13;
-  color: #f0f0f0;
+  background: var(--bg-color);
+  color: var(--text-color);
   font-family: "Segoe UI", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Hero */
@@ -24,9 +26,9 @@
 
 .landing-badge {
   display: inline-block;
-  background: rgba(99, 102, 241, 0.2);
-  color: #818cf8;
-  border: 1px solid rgba(99, 102, 241, 0.4);
+  background: rgba(var(--primary-rgb), 0.1);
+  color: var(--primary-color);
+  border: 1px solid rgba(var(--primary-rgb), 0.3);
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -41,16 +43,16 @@
   font-weight: 800;
   line-height: 1.2;
   margin: 0 0 18px;
-  color: #fff;
+  color: var(--text-color);
 }
 
 .landing-accent {
-  color: #818cf8;
+  color: var(--primary-color);
 }
 
 .landing-subtitle {
   font-size: 1.05rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 36px;
 }
@@ -62,7 +64,7 @@
 }
 
 .landing-btn-primary {
-  background: #6366f1;
+  background: var(--btn-gradient);
   color: #fff;
   border: none;
   padding: 13px 28px;
@@ -70,18 +72,18 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: transform 0.15s, box-shadow 0.2s;
 }
 
 .landing-btn-primary:hover {
-  background: #4f46e5;
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
 }
 
 .landing-btn-secondary {
   background: transparent;
-  color: #9ca3af;
-  border: 1px solid #374151;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
   padding: 13px 28px;
   border-radius: 10px;
   font-size: 1rem;
@@ -91,8 +93,8 @@
 }
 
 .landing-btn-secondary:hover {
-  border-color: #818cf8;
-  color: #c7d2fe;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 /* Preview Cards */
@@ -110,41 +112,41 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  border: 1px solid #1f2937;
+  border: 1px solid var(--border-color);
   transition: transform 0.2s;
+  background: var(--card-bg); /* Default fallback */
 }
 
 .preview-card:hover {
   transform: translateX(4px);
 }
 
+
 .preview-card.balance {
   background: linear-gradient(135deg, #1e1b4b, #312e81);
   border-color: #3730a3;
 }
-
 .preview-card.income {
-  background: linear-gradient(135deg, #052e16, #14532d);
-  border-color: #166534;
+  background: linear-gradient(135deg, #064e3b, #10b981); /* Adjusted for visibility */
+  border-color: #059669;
 }
-
 .preview-card.expense {
-  background: linear-gradient(135deg, #1c0a0a, #450a0a);
-  border-color: #991b1b;
+  background: linear-gradient(135deg, #450a0a, #dc2626); /* Adjusted */
+  border-color: #b91c1c;
 }
 
 .preview-label {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #9ca3af;
+  color: rgba(255,255,255,0.7); /* Hardcode light text for these specific colored cards */
   font-weight: 600;
 }
 
 .preview-amount {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #f9fafb;
+  color: #fff; /* Hardcode white for these specific colored cards */
 }
 
 /* Features */
@@ -158,7 +160,7 @@
   text-align: center;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-color);
   margin-bottom: 40px;
 }
 
@@ -169,15 +171,15 @@
 }
 
 .feature-card {
-  background: #16161d;
-  border: 1px solid #1f2937;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 28px 24px;
   transition: border-color 0.2s, transform 0.2s;
 }
 
 .feature-card:hover {
-  border-color: #6366f1;
+  border-color: var(--primary-color);
   transform: translateY(-4px);
 }
 
@@ -189,13 +191,13 @@
 .feature-card h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: #f0f0f0;
+  color: var(--text-color);
   margin: 0 0 8px;
 }
 
 .feature-card p {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
 }
@@ -204,13 +206,13 @@
 .landing-footer-cta {
   text-align: center;
   padding: 60px 20px 80px;
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid var(--border-color);
   margin-top: 20px;
 }
 
 .landing-footer-cta h2 {
   font-size: 1.6rem;
-  color: #f9fafb;
+  color: var(--text-color);
   margin-bottom: 24px;
 }
 

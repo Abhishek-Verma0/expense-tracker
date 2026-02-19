@@ -44,12 +44,13 @@ const TransactionItem = ({ txn, onDelete, onEdit }) => {
   if (isEditing) {
     return (
       <div className="transaction-item editing">
-        <div className="edit-fields">
+        <div className="edit-grid">
           <input
             name="title"
             value={editForm.title}
             onChange={handleChange}
             placeholder="Title"
+            className="edit-input"
           />
           <input
             name="amount"
@@ -58,8 +59,9 @@ const TransactionItem = ({ txn, onDelete, onEdit }) => {
             value={editForm.amount}
             onChange={handleChange}
             placeholder="Amount"
+            className="edit-input"
           />
-          <select name="type" value={editForm.type} onChange={handleChange}>
+          <select name="type" value={editForm.type} onChange={handleChange} className="edit-select">
             <option value="income">Income</option>
             <option value="expense">Expense</option>
           </select>
@@ -68,12 +70,14 @@ const TransactionItem = ({ txn, onDelete, onEdit }) => {
             value={editForm.category}
             onChange={handleChange}
             placeholder="Category"
+            className="edit-input"
           />
           <input
             name="date"
             type="date"
             value={editForm.date}
             onChange={handleChange}
+            className="edit-input"
           />
         </div>
         <div className="txn-actions">
@@ -91,28 +95,32 @@ const TransactionItem = ({ txn, onDelete, onEdit }) => {
   // ── View mode ──
   return (
     <div className="transaction-item">
-      <div className="txn-left">
-        <h4>{txn.title}</h4>
-        <p>
-          {txn.category && <span>{txn.category}</span>}
-          {txn.category && txn.date && <span> • </span>}
-          {txn.date && <span>{txn.date}</span>}
-        </p>
+      <div className="txn-col txn-title" data-label="Title">
+        {txn.title}
       </div>
 
       <div
-        className={`txn-amount ${txn.type === "income" ? "income" : "expense"}`}
+        className={`txn-col txn-amount ${txn.type === "income" ? "income" : "expense"}`}
+        data-label="Amount"
       >
         {txn.type === "income" ? "+" : "-"} ₹
         {Number(txn.amount).toLocaleString("en-IN")}
       </div>
 
-      <div className="txn-actions">
-        <button className="btn-edit" onClick={() => setIsEditing(true)}>
-          Edit
+      <div className="txn-col txn-category" data-label="Category">
+        {txn.category || "-"}
+      </div>
+
+      <div className="txn-col txn-date" data-label="Date">
+        {txn.date || "-"}
+      </div>
+
+      <div className="txn-col txn-actions">
+        <button className="btn-icon edit" onClick={() => setIsEditing(true)} title="Edit">
+           ✎
         </button>
-        <button className="btn-delete" onClick={() => onDelete(txn.id)}>
-          Delete
+        <button className="btn-icon delete" onClick={() => onDelete(txn.id)} title="Delete">
+           🗑
         </button>
       </div>
     </div>

@@ -1,71 +1,119 @@
-/* Dashboard container */
 .dashboard {
-  margin: 5rem 10rem;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--text-color);
+  padding-bottom: 80px; /* Space for FAB */
+  position: relative;
+  min-height: 90vh; /* Ensure full height */
 }
 
-/* Summary cards container */
+.dash-head {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--title-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Summary Cards */
 .summary-cards {
   display: flex;
-  gap: 30px;
+  gap: 20px;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-top: 5rem;
+  margin-bottom: 40px;
 }
 
-/* Individual cards */
-.balance-card,
-.income-card {
+.summary-cards h2 {
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+.summary-cards h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.amt-positive {
+  color: #00ff88;
+}
+
+.amt-negative {
+  color: #ff4d4d;
+}
+
+/* Transactions List */
+.transactions-list {
   display: flex;
-  flex: 1 1 300px;   /* responsive width */
-  min-width: 260px;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-/* ========================= */
-/* Tablet (<= 1024px) */
-/* ========================= */
-@media (max-width: 1024px) {
-  .dashboard {
-    margin: 4rem 4rem;
-  }
-
-  .summary-cards {
-    gap: 20px;
-    margin-top: 3rem;
-  }
+.dash-status, .dash-error {
+  text-align: center;
+  color: #888;
+  margin-top: 40px;
+  font-size: 1.1rem;
 }
 
-/* ========================= */
-/* Small Tablet (<= 768px) */
-/* ========================= */
-@media (max-width: 768px) {
-  .dashboard {
-    margin: 3rem 2rem;
-  }
+.dash-error {
+  color: #ff4d4d;
+}
 
-  .summary-cards {
+/* Table Header Row (Desktop primarily) */
+.txn-header-row {
+  display: none; /* Hidden on mobile */
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+@media (min-width: 768px) {
+  .txn-header-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 80px;
     gap: 16px;
-  }
-
-  .balance-card,
-  .income-card {
-    flex: 1 1 100%;   /* one per row if needed */
+    align-items: center;
   }
 }
 
-/* ========================= */
-/* Mobile (<= 480px) */
-/* ========================= */
-@media (max-width: 480px) {
-  .dashboard {
-    margin: 2rem 1rem;
-  }
+/* Floating Action Button (FAB) */
+.fab-add {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  font-size: 24px; /* Adjusted for icon */
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex !important; /* Force flex */
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  z-index: 100;
+}
 
-  .summary-cards {
-    margin-top: 2rem;
-  }
+.fab-add:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.6);
+}
 
-  .balance-card,
-  .income-card {
-    width: 100%;
-    flex: 1 1 100%;
-  }
+.fab-add:active {
+  transform: scale(0.95);
 }
